@@ -1,23 +1,44 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
+import Todos from './components/Todos';
+import AddTodo from './components/AddTodo';
 import './App.css';
 
-function App() {
+function App()
+{
+  const [todos, setTodos] = useState([])
+  const [updateTodoId, setUpdateTodoId] = useState(null);
+  const [deleteTodoId, setDeleteTodoId] = useState(null)
+  const fetchTodos = async () =>
+  {
+    const res = await fetch("https://jsonplaceholder.typicode.com/todos");
+    const data = await res.json()
+    setTodos(data)
+  }
+
+  const updateTodo = (id) =>
+  {
+    setUpdateTodoId(id)
+  }
+
+  const deleteTodo = async (id) =>
+  {
+    await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: "DELETE",
+    })
+
+  }
+
+  useEffect(() =>
+  {
+    fetchTodos()
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>TODO List</h1>
+
+      <AddTodo todos={todos} setTodos={setTodos} updateTodoId={updateTodoId} setUpdateTodoId={setUpdateTodoId} />
+      <Todos todos={todos} updateTodo={updateTodo} updateTodoId={updateTodoId} deleteTodo={deleteTodo} />
     </div>
   );
 }
