@@ -3,7 +3,6 @@ import React, { useState } from "react";
 const AddTodo = ({ todos, setTodos, updateTodoId, setUpdateTodoId }) =>
 {
     const [todo, setTodo] = useState("");
-    const [isTodoUpdate, setIsTodoUpdate] = useState()
 
     const handleAddTodo = async () =>
     {
@@ -29,7 +28,7 @@ const AddTodo = ({ todos, setTodos, updateTodoId, setUpdateTodoId }) =>
 
     const handleUpdateTodo = async () =>
     {
-        const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${updateTodoId}`, {
+        await fetch(`https://jsonplaceholder.typicode.com/todos/${updateTodoId}`, {
             method: "PUT",
             body: JSON.stringify({
                 id: updateTodoId,

@@ -7,7 +7,6 @@ function App()
 {
   const [todos, setTodos] = useState([])
   const [updateTodoId, setUpdateTodoId] = useState(null);
-  const [deleteTodoId, setDeleteTodoId] = useState(null)
   const fetchTodos = async () =>
   {
     const res = await fetch("https://jsonplaceholder.typicode.com/todos");
